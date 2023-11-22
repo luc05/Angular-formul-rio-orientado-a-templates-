@@ -5,10 +5,15 @@
     <h3 class="principal__subtitulo">Dados pessoais</h3>
     <div class="formulario__campo">
       <label class="campo__etiqueta" for="nome">Nome Completo</label>
-      <input name="nome" id="nome" class="campo__escrita" ngModel required minlength="2">
-      <div *ngIf="formModel.controls['nome']?.touched || formModel.controls['nome']?.dirty">
-        <span class="erro__texto" *ngIf="formModel.controls['nome']?.errors?.['required']">O campo nome deve ser preenchido!</span>
-        <span class="erro__texto" *ngIf="formModel.controls['nome']?.errors?.['minlength']">O campo nome deve ter no mínimo 2 caracteres!</span>
+      <input 
+      name="nome" 
+      id="nome" 
+      class="campo__escrita" 
+      #nome="ngModel"
+      ngModel required minlength="2">
+      <div *ngIf="(nome?.invalid && nome?.touched) || nome?.dirty">
+        <app-mensagem *ngIf="nome?.errors?.['required']" mensagem="O campo nome deve ser preenchido!"></app-mensagem>
+        <app-mensagem *ngIf="nome?.errors?.['minlength']" mensagem="O campo nome deve ter no mínimo 2 caracteres!"></app-mensagem>
       </div>
     </div>
     <div class="formulario__dupla">
@@ -18,12 +23,20 @@
       </div>
       <div class="formulario__campo">
         <label class="campo__etiqueta" for="telefone">Contato</label>
-        <input name="telefone" id="telefone" type="tel" placeholder="(XX) XXXXX-XXXX" class="campo__escrita"/>
+        <input name="telefone" id="telefone" type="tel" placeholder="(XX) XXXXX-XXXX" class="campo__escrita" ngModel required pattern="(\(?\d{2}\)?\s?)(\d{5}\-?\d{4})"/>
+        <div *ngIf="formModel.controls['telefone']?.touched || formModel.controls['telefone']?.dirty">
+          <span class="erro__texto" *ngIf="formModel.controls['telefone']?.errors?.['required']">O campo telefone deve ser preenchido!</span>
+          <span class="erro__texto" *ngIf="formModel.controls['telefone']?.errors?.['pattern']">O campo telefone esta faltando algo</span>
+        </div>
       </div>
     </div>
     <div class="formulario__campo">
       <label class="campo__etiqueta" for="email">E-mail</label>
-      <input name="email" id="email" type="email" class="campo__escrita"/>
+      <input name="email" id="email" type="email" class="campo__escrita" ngModel required pattern="^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$"/>
+      <div *ngIf="formModel.controls['email']?.touched || formModel.controls['email']?.dirty">
+        <span class="erro__texto" *ngIf="formModel.controls['email']?.errors?.['required']">O campo email deve ser preenchido!</span>
+        <span class="erro__texto" *ngIf="formModel.controls['email']?.errors?.['pattern']">O campo email deve ter este padrão email@com.br</span>
+      </div>
     </div>
 
 
