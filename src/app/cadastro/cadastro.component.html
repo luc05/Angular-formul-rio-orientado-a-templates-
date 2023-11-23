@@ -19,23 +19,42 @@
     <div class="formulario__dupla">
       <div class="formulario__campo">
         <label class="campo__etiqueta" for="nascimento">Nascimento</label>
-        <input name="nascimento" id="nascimento" type="date" class="campo__escrita"/>
+        <input 
+        name="nascimento" 
+        id="nascimento" 
+        type="date" 
+        #nascimento="ngModel"
+        ngModel required
+        class="campo__escrita"/>
       </div>
       <div class="formulario__campo">
         <label class="campo__etiqueta" for="telefone">Contato</label>
-        <input name="telefone" id="telefone" type="tel" placeholder="(XX) XXXXX-XXXX" class="campo__escrita" ngModel required pattern="(\(?\d{2}\)?\s?)(\d{5}\-?\d{4})"/>
-        <div *ngIf="formModel.controls['telefone']?.touched || formModel.controls['telefone']?.dirty">
-          <span class="erro__texto" *ngIf="formModel.controls['telefone']?.errors?.['required']">O campo telefone deve ser preenchido!</span>
-          <span class="erro__texto" *ngIf="formModel.controls['telefone']?.errors?.['pattern']">O campo telefone esta faltando algo</span>
+        <input 
+          name="telefone" 
+          id="telefone" 
+          type="tel" 
+          placeholder="(XX) XXXXX-XXXX" 
+          class="campo__escrita" 
+          #telefone="ngModel"
+          ngModel required pattern="(\(?\d{2}\)?\s?)(\d{5}\-?\d{4})"/>
+        <div *ngIf="telefone?.touched || telefone?.dirty">
+          <app-mensagem class="erro__texto" *ngIf="telefone?.errors?.['required']" mensagem="O campo telefone deve ser preenchido!"></app-mensagem>
+          <app-mensagem class="erro__texto" *ngIf="telefone?.errors?.['pattern']" mensagem="O campo telefone esta faltando algo"></app-mensagem>
         </div>
       </div>
     </div>
     <div class="formulario__campo">
       <label class="campo__etiqueta" for="email">E-mail</label>
-      <input name="email" id="email" type="email" class="campo__escrita" ngModel required pattern="^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$"/>
-      <div *ngIf="formModel.controls['email']?.touched || formModel.controls['email']?.dirty">
-        <span class="erro__texto" *ngIf="formModel.controls['email']?.errors?.['required']">O campo email deve ser preenchido!</span>
-        <span class="erro__texto" *ngIf="formModel.controls['email']?.errors?.['pattern']">O campo email deve ter este padrão email@com.br</span>
+      <input 
+        name="email" 
+        id="email" 
+        type="email" 
+        class="campo__escrita" 
+        #email="ngModel"
+        ngModel required pattern="^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$"/>
+      <div *ngIf="email?.touched || email?.dirty">
+        <app-mensagem class="erro__texto" *ngIf="email?.errors?.['required']" mensagem="O campo email deve ser preenchido!"></app-mensagem>
+        <app-mensagem class="erro__texto" *ngIf="email?.errors?.['pattern']" mensagem="O campo email deve ter este padrão email@com.br"></app-mensagem>
       </div>
     </div>
 
